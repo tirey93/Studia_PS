@@ -2,6 +2,6 @@
 Console.WriteLine("Hello, Server!");
 while (true)
 {
-    Console.WriteLine("tekst");
+    Console.WriteLine("tekstabc");
     Thread.Sleep(1000);
 }

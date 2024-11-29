@@ -2,6 +2,6 @@
 Console.WriteLine("Hello, Client!");
 while (true)
 {
-    Console.WriteLine("another text");
+    Console.WriteLine("another textxyz");
     Thread.Sleep(1000);
 }
