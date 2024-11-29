@@ -19,5 +19,14 @@ var serviceProvider = new ServiceCollection()
     .BuildServiceProvider();
 
 var echoClientService = serviceProvider.GetRequiredService<EchoClientService>();
+var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+var logger = loggerFactory.CreateLogger<Program>();
 
-echoClientService.Execute();
+try
+{
+    echoClientService.Connect();
+}
+catch (Exception ex)
+{
+    logger.LogCritical(ex, "Exception");
+}

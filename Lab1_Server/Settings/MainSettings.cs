@@ -3,6 +3,8 @@ namespace Lab1_Server.Settings
 {
     public class MainSettings
     {
-        public int Field { get; set; }
+        public string Host { get; set; }
+        public int Port { get; set; }
+        public int Backlog { get; set; }
     }
 }
