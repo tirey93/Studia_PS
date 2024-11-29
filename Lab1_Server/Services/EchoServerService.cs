@@ -38,6 +38,7 @@ namespace Lab1_Server.Services
                 var message = Encoding.ASCII.GetString(buffer, 0, result);
                 _logger.LogInformation($"Message received: {message}");
 
+                cli.Send(Encoding.ASCII.GetBytes(message));
             }
         }
 
