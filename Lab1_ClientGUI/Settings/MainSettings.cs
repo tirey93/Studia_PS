@@ -1,5 +1,5 @@
 ﻿
-namespace Lab1_Client.Settings
+namespace Lab1_ClientGUI.Settings
 {
     public class MainSettings
     {
