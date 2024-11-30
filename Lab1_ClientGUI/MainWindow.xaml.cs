@@ -14,5 +14,6 @@ namespace Lab1_ClientGUI
             InitializeComponent();
             DataContext = new MainViewModel(echoClientService);
         }
+
     }
 }

@@ -21,11 +21,26 @@ namespace Lab1_ClientGUI.ViewModels
                 }
             }
         }
+        private string _sendInput;
+        public string SendInput
+        {
+            get { return _sendInput; }
+            set 
+            { 
+                if(_sendInput != value)
+                {
+                    _sendInput = value;
+                    OnPropertyChanged(nameof(SendInput));
+                }
+            }
+        }
 
         private readonly EchoClientService _echoClientService;
 
         private ICommand _connectCommand;
         public ICommand ConnectCommand => _connectCommand ?? (_connectCommand = new SimpleCommandHandler(Connect));
+        private ICommand _sendCommand;
+        public ICommand SendCommand => _sendCommand ?? (_sendCommand = new SimpleCommandHandler(Send));
 
         public MainViewModel(EchoClientService echoClientService)
         {
@@ -42,6 +57,18 @@ namespace Lab1_ClientGUI.ViewModels
             try
             {
                 _echoClientService.Connect();
+            }
+            catch (Exception ex)
+            {
+                LogInput += "ERROR: " + ex.Message + "\n";
+            }
+        }
+
+        public void Send()
+        {
+            try
+            {
+                _echoClientService.Send(SendInput);
             }
             catch (Exception ex)
             {

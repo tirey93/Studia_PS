@@ -1,5 +1,4 @@
-﻿
-using Lab1_ClientGUI.Settings;
+﻿using Lab1_ClientGUI.Settings;
 using Microsoft.Extensions.Options;
 using System.Net;
 using System.Net.Sockets;
@@ -11,7 +10,7 @@ namespace Lab1_ClientGUI.Services
     {
         public event Action<string> LogChanged;
         private readonly MainSettings _settings;
-        private Socket _socket;
+        public Socket Socket { get; set; }
 
         public EchoClientService(IOptions<MainSettings> options)
         {
@@ -20,21 +19,20 @@ namespace Lab1_ClientGUI.Services
 
         public void Connect()
         {
-            LogChanged?.Invoke($"1Establishing connection with {_settings.Host}");
             IPAddress[] IPs = Dns.GetHostAddresses(_settings.Host);
-            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             LogChanged?.Invoke($"Establishing connection with {_settings.Host}");
-            //_socket.Connect(IPs[0], _settings.Port);
-            //LogChanged?.Invoke($"Connected: {_socket.Connected}");
+            Socket.Connect(IPs[0], _settings.Port);
+            LogChanged?.Invoke($"Connected: {Socket.Connected}");
 
-            //Thread threadReceive = new Thread(new ParameterizedThreadStart(Receive));
-            //threadReceive.Start(_socket);
+            Thread threadReceive = new Thread(new ParameterizedThreadStart(Receive));
+            threadReceive.Start(Socket);
         }
 
         public void Send(string message)
         {
-            _socket.Send(Encoding.ASCII.GetBytes(message));
+            Socket.Send(Encoding.ASCII.GetBytes(message));
             LogChanged?.Invoke($"Sent: {message}");
         }
 
@@ -46,8 +44,7 @@ namespace Lab1_ClientGUI.Services
                 byte[] buffer = new byte[1024];
                 int result = socket.Receive(buffer);
                 var message = Encoding.ASCII.GetString(buffer, 0, result);
-                //_logger.LogInformation($"Message received: {message}");
-                Console.Out.Flush();
+                LogChanged?.Invoke($"Message received: {message}");
             }
         }
     }
