@@ -1,14 +1,6 @@
 ﻿using Lab1_ClientGUI.Services;
-using System.Text;
+using Lab1_ClientGUI.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Lab1_ClientGUI
 {
@@ -22,8 +14,20 @@ namespace Lab1_ClientGUI
         public MainWindow(EchoClientService echoClientService)
         {
             InitializeComponent();
+            DataContext = new MainViewModel(echoClientService);
             _echoClientService = echoClientService;
-            _echoClientService.Connect();
+        }
+
+        private void Connect_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _echoClientService.Connect();
+            }
+            catch (Exception ex)
+            {
+                LogInput1.Text += "ERROR: " + ex.Message + "\n";
+            }
         }
     }
 }

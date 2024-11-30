@@ -7,6 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <TextBox 
+             x:Name="LogInput1"
+             Text="{Binding LogInput}"
+             IsEnabled="False"
+             Margin="10,187,10,10"  
+             TextWrapping="Wrap" 
+             AcceptsReturn="True"
+             VerticalScrollBarVisibility="Auto" 
+             HorizontalScrollBarVisibility="Disabled"/>
+        <TextBox HorizontalAlignment="Left" Margin="97,60,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Send" HorizontalAlignment="Left" Margin="229,60,0,0" VerticalAlignment="Top"/>
+        <Button Content="Connect" Click="Connect_Click" HorizontalAlignment="Left" Margin="529,45,0,0" VerticalAlignment="Top" Height="47" Width="65"/>
+        <Button Content="Disonnect" HorizontalAlignment="Left" Margin="618,45,0,0" VerticalAlignment="Top" Height="47" Width="65"/>
     </Grid>
 </Window>
